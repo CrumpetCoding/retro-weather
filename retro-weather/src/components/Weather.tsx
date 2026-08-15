@@ -1,6 +1,33 @@
+import { useEffect, useRef, useState } from 'react';
 import { Card, Text, Input, Button, LayoutHeader, Marquee } from 'retro-react';
 
 export default function Weather() {
+
+    const [weatherData, setWeatherData] = useState(false);
+
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const search = async (city) => {
+        try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_APP_ID}`
+
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data);
+            setWeatherData({
+                humidity: data.main.humidity,
+                windSpeed: data.wind.speed,
+                temperature: Math.floor(data.main.temp),
+                location: data.name
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        search("London");
+    }, [])
 
     return (
         <Card
@@ -18,6 +45,7 @@ export default function Weather() {
                 </Text>
             </LayoutHeader>
             <Input
+                ref={inputRef}
                 onChange={function noRefCheck() { }}
                 placeholder="Search"
                 size="medium"
@@ -28,7 +56,7 @@ export default function Weather() {
                 variant="classic"
             />
             <Button
-                onClick={function noRefCheck() { }}
+                onClick={() => search(inputRef.current?.value)}
                 size="medium"
                 variant="secondary"
 
