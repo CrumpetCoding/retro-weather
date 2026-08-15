@@ -1,4 +1,4 @@
-import { Card, Text, Input, Button, LayoutHeader } from 'retro-react';
+import { Card, Text, Input, Button, LayoutHeader, Marquee } from 'retro-react';
 
 export default function Weather() {
 
@@ -13,7 +13,9 @@ export default function Weather() {
             }}
         >
             <LayoutHeader sx={{ margin: 0, padding: 1, backgroundColor: '#000080' }}>
-                <Text sx={{ color: 'white', fontWeight: 'bold' }}>Weather App</Text>
+                <Text sx={{ color: 'white', fontWeight: 'bold' }}>
+                    Weather.exe
+                </Text>
             </LayoutHeader>
             <Input
                 onChange={function noRefCheck() { }}
@@ -29,6 +31,7 @@ export default function Weather() {
                 onClick={function noRefCheck() { }}
                 size="medium"
                 variant="secondary"
+
                 sx={{
                     marginRight: 1,
                     maxHeight: '26px',
@@ -37,9 +40,14 @@ export default function Weather() {
             >
                 Search
             </Button>
-            <Text variant="paragraph" sx={{ margin: 1 }}>
-                A retro way to find the weather wherever you are.
-            </Text>
+            <Marquee
+                color="#000000"
+                gap="2rem"
+                size="medium"
+                speed="20s"
+            >
+                A retro way to check the weather wherever you are!
+            </Marquee>
         </Card>
     );
 }
