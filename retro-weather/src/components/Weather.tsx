@@ -1,12 +1,22 @@
-import React from "react";
-import './Weather.css'
+import { Card, Text } from 'retro-react';
 
-function Weather() {
+export default function Weather() {
+
     return (
-        <div>
-            <h1>Weather</h1>
-        </div>
-    )
+        <Card
+            alt="Vintage computer setup"
+            footer="Retro UI v1.0"
+            header="System Information"
+            image="https://picsum.photos/seed/retro/320/180"
+            sx={{
+                maxWidth: 360,
+                maxHeight: 400,
+                margin: 'auto'
+            }}
+        >
+            <Text variant="paragraph">
+                A complete retro card with header, image, content, and footer.
+            </Text>
+        </Card>
+    );
 }
-
-export default Weather
