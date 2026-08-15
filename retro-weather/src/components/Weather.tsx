@@ -5,8 +5,7 @@ export default function Weather() {
     return (
         <Card
             alt="Vintage computer setup"
-            footer="Retro UI v1.0"
-            header="System Information"
+            header="Weather Information"
             image="https://picsum.photos/seed/retro/320/180"
             sx={{
                 maxWidth: 360,
