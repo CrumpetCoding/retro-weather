@@ -15,18 +15,17 @@ export default function Weather() {
             const data = await response.json();
             console.log(data);
             setWeatherData({
-                humidity: data.main.humidity,
                 windSpeed: data.wind.speed,
                 temperature: Math.floor(data.main.temp),
                 location: data.name
             })
         } catch (error) {
-            console.log(error);
+            console.error('An error occurred:', error);
         }
     }
 
     useEffect(() => {
-        search("London");
+        search(inputRef);
     }, [])
 
     return (
