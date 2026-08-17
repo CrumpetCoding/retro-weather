@@ -19,6 +19,7 @@ export default function Weather() {
                 temperature: Math.floor(data.main.temp),
                 location: data.name
             })
+
         } catch (error) {
             console.error('An error occurred:', error);
         }
