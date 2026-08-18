@@ -1,9 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { Card, Text, Input, Button, LayoutHeader, Marquee } from 'retro-react';
+import { Card, Text, Input, Button, LayoutHeader, Marquee, Box } from 'retro-react';
+
+
+export interface dataTypes {
+    conditions: string;
+    temperature: number;
+    feelsLike: number;
+    location: string;
+    humidity: number;
+}
 
 export default function Weather() {
 
-    const [weatherData, setWeatherData] = useState(false);
+    const [weatherData, setWeatherData] = useState<dataTypes | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -15,9 +24,11 @@ export default function Weather() {
             const data = await response.json();
             console.log(data);
             setWeatherData({
-                windSpeed: data.wind.speed,
+                conditions: data.weather[0].main,
                 temperature: Math.floor(data.main.temp),
-                location: data.name
+                feelsLike: Math.floor(data.main.feels_like),
+                location: data.name,
+                humidity: Math.floor(data.main.humidity)
             })
 
         } catch (error) {
@@ -68,6 +79,26 @@ export default function Weather() {
             >
                 Search
             </Button>
+
+            {weatherData && (
+                <>
+                    <Box variant='sunken' sx={{
+                        padding: 1,
+                        margin: 1,
+                        background: "white",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }}>
+                        <Text variant='h1'>{weatherData.location}</Text>
+                        <Text variant='h1'>{weatherData.temperature}°C</Text>
+                        <Text variant='h2'>{weatherData.conditions}</Text>
+                        <Text variant='h3'>Feels like: {weatherData.feelsLike}°C</Text>
+                        <Text variant='h3'>Humidity: {weatherData.humidity}%</Text>
+                    </Box>
+                </>
+            )}
+
             <Marquee
                 color="#000000"
                 gap="2rem"
