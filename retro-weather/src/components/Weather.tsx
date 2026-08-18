@@ -42,13 +42,16 @@ export default function Weather() {
         search(inputRef);
     }, [])
 
-    let style = 'white';
+    let backgroundStyle = 'linear-gradient( #008080, white)';
 
     if (weatherData?.conditions === 'Clear') {
-        style = 'blue';
+        backgroundStyle = 'linear-gradient( #87CEEB, white)';
     }
-    else if (weatherData?.conditions === 'Rain') {
-        style = 'grey';
+    else if (weatherData?.conditions === 'Rain' || weatherData?.conditions === 'Thunderstorm') {
+        backgroundStyle = 'linear-gradient( #808080, white )';
+    }
+    else if (weatherData?.conditions === 'Clouds' || weatherData?.conditions === 'Drizzle') {
+        backgroundStyle = 'linear-gradient( #a0a0a4, white )';
     }
 
     return (
@@ -79,8 +82,7 @@ export default function Weather() {
             />
             <Button
                 id='submit'
-                onClick={() => search(inputRef.current?.value)
-                }
+                onClick={() => search(inputRef.current?.value)}
                 size="medium"
                 variant="secondary"
 
@@ -96,7 +98,7 @@ export default function Weather() {
             {weatherData && (
                 <>
                     <Box variant='sunken' sx={{
-                        background: style,
+                        backgroundImage: backgroundStyle,
                         padding: 1,
                         margin: 1,
                         display: "flex",
