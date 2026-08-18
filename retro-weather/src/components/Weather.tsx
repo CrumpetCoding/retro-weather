@@ -10,11 +10,13 @@ export interface dataTypes {
     humidity: number;
 }
 
+
 export default function Weather() {
 
     const [weatherData, setWeatherData] = useState<dataTypes | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
+
 
     const search = async (city) => {
         try {
@@ -67,7 +69,9 @@ export default function Weather() {
                 variant="classic"
             />
             <Button
-                onClick={() => search(inputRef.current?.value)}
+                id='submit'
+                onClick={() => search(inputRef.current?.value)
+                }
                 size="medium"
                 variant="secondary"
 
