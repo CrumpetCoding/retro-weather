@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Card, Text, Input, Button, LayoutHeader, Marquee, Box } from 'retro-react';
+import { Card, Text, Input, Button, LayoutHeader, Marquee, Box, Background } from 'retro-react';
 
 
 export interface dataTypes {
@@ -41,6 +41,15 @@ export default function Weather() {
     useEffect(() => {
         search(inputRef);
     }, [])
+
+    let style = 'white';
+
+    if (weatherData?.conditions === 'Clear') {
+        style = 'blue';
+    }
+    else if (weatherData?.conditions === 'Rain') {
+        style = 'grey';
+    }
 
     return (
         <Card
@@ -87,9 +96,9 @@ export default function Weather() {
             {weatherData && (
                 <>
                     <Box variant='sunken' sx={{
+                        background: style,
                         padding: 1,
                         margin: 1,
-                        background: "white",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center"
@@ -101,7 +110,8 @@ export default function Weather() {
                         <Text variant='h3'>Humidity: {weatherData.humidity}%</Text>
                     </Box>
                 </>
-            )}
+            )
+            }
 
             <Marquee
                 color="#000000"
@@ -111,6 +121,6 @@ export default function Weather() {
             >
                 A retro way to check the weather wherever you are!
             </Marquee>
-        </Card>
+        </Card >
     );
 }
