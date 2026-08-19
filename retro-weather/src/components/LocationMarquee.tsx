@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
 import { Marquee } from "retro-react";
-
+import { searchMultiple, type WeatherDataMultiple } from "../api";
 
 export default function Weather() {
-
-    fetch()
-
-    const [weatherData, setWeatherData] = useState([]);
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_APP_ID}`
+    const [weatherData, setWeatherData] = useState<WeatherDataMultiple[]>([]);
     const locations = ['London', 'Paris', 'New York', 'Los Angeles', 'Tokyo', 'Sydney', 'Hong Kong', 'Moscow', 'Dubai']
 
-
     useEffect(() => {
-        fetch(url)
-            .then(response => response.json())
-            .then(json => setWeatherData({
-                temperature: data.temperature,
-                location: data.name
-            }))
-    })
+        searchMultiple(locations)
+            .then(result => setWeatherData(result))
+    }, []);
 
     return (
-        <Marquee></Marquee>
+        <Marquee speed="20s">
+            {weatherData.map((data) => (
+                <span style={{ padding: "0 8px" }} key={data.location}>
+                    <span>{data.location}</span> <span>{data.result.temperature}°C</span>
+                </span>
+            ))}
+        </Marquee>
     )
 }
