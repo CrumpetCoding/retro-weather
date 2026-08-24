@@ -15,7 +15,7 @@ export default function Weather() {
         <Marquee speed="20s">
             {weatherData.map((data) => (
                 <span style={{ padding: "0 8px" }} key={data.location}>
-                    <span>{data.location}</span> <span>{data.result.temperature}°C</span>
+                    <span>{data.location}</span> <span>{data.result.temperature}°C</span><span>{data.result.icon}</span>
                 </span>
             ))}
         </Marquee>

@@ -4,6 +4,7 @@ export type WeatherData = {
     feelsLike: number;
     location: string;
     humidity: number;
+    icon: string;
 }
 
 export type WeatherDataMultiple = {
@@ -31,6 +32,7 @@ export const search = async (location: string): Promise<WeatherData | null | str
             feelsLike: Math.floor(data.main.feels_like),
             location: data.name,
             humidity: Math.floor(data.main.humidity),
+            icon: data.weather.icon,
         };
     } catch {
         return null;
