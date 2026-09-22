@@ -1,27 +1,30 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback, memo, useMemo } from 'react';
 import { Card, Text, Input, Button, LayoutHeader, Marquee, Box, Alert } from 'retro-react';
 import { search, type WeatherData } from '../api';
 import LocationMarquee from './LocationMarquee';
 
-export default function Weather() {
+function Weather() {
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const [inputError, setInputError] = useState<string | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    let backgroundStyle = 'linear-gradient( #008080, white)';
+    const backgroundStyle = useMemo(() => {
+        switch (weatherData?.conditions) {
+            case 'Clear':
+                return 'linear-gradient( #87CEEB, white)';
+            case 'Rain':
+            case 'Thunderstorm':
+                return 'linear-gradient( #808080, white )';
+            case 'Clouds':
+            case 'Drizzle':
+                return 'linear-gradient( #a0a0a4, white )';
+            default:
+                return 'linear-gradient( #008080, white)';
+        }
+    }, [weatherData?.conditions]);
 
-    if (weatherData?.conditions === 'Clear') {
-        backgroundStyle = 'linear-gradient( #87CEEB, white)';
-    }
-    else if (weatherData?.conditions === 'Rain' || weatherData?.conditions === 'Thunderstorm') {
-        backgroundStyle = 'linear-gradient( #808080, white )';
-    }
-    else if (weatherData?.conditions === 'Clouds' || weatherData?.conditions === 'Drizzle') {
-        backgroundStyle = 'linear-gradient( #a0a0a4, white )';
-    }
-
-    const submit = async () => {
+    const submit = useCallback(async () => {
         setInputError(null);
         setWeatherData(null);
 
@@ -42,8 +45,7 @@ export default function Weather() {
         } else {
             setInputError("Something went wrong...");
         }
-    }
-
+    }, []);
 
     return (
         <Card
@@ -117,3 +119,5 @@ export default function Weather() {
         </Card >
     );
 }
+
+export default memo(Weather);

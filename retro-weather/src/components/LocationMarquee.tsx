@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { Marquee } from "retro-react";
 import { searchMultiple, type WeatherDataMultiple } from "../api";
 
-export default function Weather() {
+function Weather() {
     const [weatherData, setWeatherData] = useState<WeatherDataMultiple[]>([]);
     const locations = ['London', 'Paris', 'New York', 'Los Angeles', 'Tokyo', 'Sydney', 'Hong Kong', 'Moscow', 'Dubai']
 
@@ -21,3 +21,5 @@ export default function Weather() {
         </Marquee>
     )
 }
+
+export default memo(Weather);
